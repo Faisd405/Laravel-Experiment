@@ -22,7 +22,7 @@ class StoreUserLoginHistory
      */
     public function handle(LoginHistory $event): void
     {
-        DB::table('login_history')->insert([
+        DB::table('login_historys')->insert([
             'user_id' => $event->user->id,
             'ip_address' => request()->ip(),
             'user_agent' => request()->userAgent(),
