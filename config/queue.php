@@ -72,7 +72,6 @@ return [
         ],
 
         'rabbitmq' => [
-
             'driver' => 'rabbitmq',
             'hosts' => [
                 [
@@ -89,7 +88,7 @@ return [
                     'queue_max_priority' => 10,
                 ],
             ],
-         ],
+        ],
     ],
 
     /*

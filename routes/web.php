@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ItemController;
 use App\Http\Controllers\LogController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RedisController;
@@ -36,6 +37,10 @@ Route::group(['prefix'=>'redis'], function () {
 
 Route::group(['prefix'=>'rabbitmq'], function () {
     Route::post('/create-log', [LogController::class, 'createLog'])->name('log.create');
+});
+
+Route::group(['prefix'=>'item', 'middleware'=> 'auth'], function () {
+    Route::get('/', [ItemController::class, 'index'])->name('item.index');
 });
 
 require __DIR__.'/auth.php';
