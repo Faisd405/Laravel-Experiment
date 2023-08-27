@@ -1,9 +1,12 @@
 <?php
 
+use App\Events\NotificationUpdate;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\LogController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RedisController;
+use App\Http\Controllers\SoketiController;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -31,16 +34,25 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::group(['prefix'=>'redis'], function () {
+Route::group(['prefix' => 'redis'], function () {
     Route::get('/', [RedisController::class, 'index'])->name('redis.index');
 });
 
-Route::group(['prefix'=>'rabbitmq'], function () {
+Route::group(['prefix' => 'rabbitmq'], function () {
     Route::post('/create-log', [LogController::class, 'createLog'])->name('log.create');
 });
 
-Route::group(['prefix'=>'item', 'middleware'=> 'auth'], function () {
+Route::group(['prefix' => 'soketi'], function () {
+    Route::get('/fire', function () {
+        Log::info('SoketiController fire');
+        event(new NotificationUpdate('Hello World!'));
+
+        return 'Event has been sent!';
+    })->name('soketi.fire');
+});
+
+Route::group(['prefix' => 'item', 'middleware' => 'auth'], function () {
     Route::get('/', [ItemController::class, 'index'])->name('item.index');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

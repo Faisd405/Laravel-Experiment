@@ -24,11 +24,21 @@
                     </h2>
                 </div>
                 <div class="p-6 ">
-                    <a href="" class="text-gray-900 dark:text-gray-100 hover:text-gray-700 dark:hover:text-gray-300 hover:font-bold">
+                    <a href=""
+                        class="text-gray-900 dark:text-gray-100 hover:text-gray-700 dark:hover:text-gray-300 hover:font-bold">
                         1. Realtime Chat
                     </a>
                 </div>
             </div>
         </div>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            Echo.channel('notification').listen('notification.update', function(data) {
+                alert(data.message);
+            });
+            console.log('Listening to notification channel...');
+        });
+    </script>
 </x-app-layout>
